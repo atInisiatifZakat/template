@@ -1,0 +1,77 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Inisiatif\Package\Template\Bridge;
+
+use InvalidArgumentException;
+
+final class Donor
+{
+    /**
+     * @var int
+     */
+    private $identificationNumber;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string|null
+     */
+    private $taxNumber;
+
+    /**
+     * @var string|null
+     */
+    private $address;
+
+    private function __construct(int $identificationNumber, string $name, ?string $taxNumber, ?string $address)
+    {
+        $this->identificationNumber = $identificationNumber;
+        $this->name = $name;
+        $this->taxNumber = $taxNumber;
+        $this->address = $address;
+    }
+
+    public static function fromArray(array $input): self
+    {
+        if (! array_key_exists('identification_number', $input) || ! array_key_exists('name', $input)) {
+            throw new InvalidArgumentException();
+        }
+
+        $identificationNumber = $input['identification_number'];
+        $name = $input['name'];
+
+        if (! is_int($identificationNumber) || ! is_string($name)) {
+            throw new InvalidArgumentException();
+        }
+
+        $taxNumber = array_key_exists('tax_number', $input) ? $input['tax_number'] : null;
+        $address = array_key_exists('address', $input) ? $input['address'] : null;
+
+        return new self($identificationNumber, $name, $taxNumber, $address);
+    }
+
+    public function getIdentificationNumber(): int
+    {
+        return $this->identificationNumber;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getTaxNumber(): ?string
+    {
+        return $this->taxNumber;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+}
