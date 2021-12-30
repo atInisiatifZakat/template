@@ -31,7 +31,7 @@ final class Rupiah
      */
     private static function convert($number): ?string
     {
-        /** @var int|float $nominal */
+        /** @psalm-var mixed $nominal */
         $nominal = $number < 0 ? $number *= -1 : $number;
 
         $numberStrings = [
