@@ -10,7 +10,7 @@ use InvalidArgumentException;
 final class Donation
 {
     /**
-     * @var int
+     * @var string
      */
     private $identificationNumber;
 
@@ -29,7 +29,7 @@ final class Donation
      */
     private $branchName;
 
-    private function __construct(int $identificationNumber, DateTimeInterface $date, float $amount, string $branchName)
+    private function __construct(string $identificationNumber, DateTimeInterface $date, float $amount, string $branchName)
     {
         $this->identificationNumber = $identificationNumber;
         $this->date = $date;
@@ -51,14 +51,14 @@ final class Donation
         $amount = is_int($input['amount']) ? (float) $input['amount'] : $input['amount'];
         $branchName = $input['branch_name'];
 
-        if (! is_int($identificationNumber) || ! is_float($amount) || ! $date instanceof DateTimeInterface || ! is_string($branchName)) {
+        if (! is_string($identificationNumber) || ! is_float($amount) || ! $date instanceof DateTimeInterface || ! is_string($branchName)) {
             throw new InvalidArgumentException();
         }
 
         return new self($identificationNumber, $date, $amount, $branchName);
     }
 
-    public function getIdentificationNumber(): int
+    public function getIdentificationNumber(): string
     {
         return $this->identificationNumber;
     }

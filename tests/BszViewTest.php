@@ -17,14 +17,14 @@ final class BszViewTest extends TestCase
     public function testCanRenderBszView(): void
     {
         $donor = Donor::fromArray([
-            'identification_number' => 1000001,
+            'identification_number' => '1000001',
             'name' => 'Foo Bar',
             'address' => 'Foo Bar Address',
             'tax_number' => 'Tax Number',
         ]);
 
         $donation = Donation::fromArray([
-            'identification_number' => 2000002,
+            'identification_number' => '2000002',
             'date' => new \DateTime(),
             'amount' => 1000000,
             'branch_name' => 'DKI Jakarta',

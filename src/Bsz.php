@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Inisiatif\Package\Template;
 
+use Illuminate\Http\Response;
 use Barryvdh\Snappy\PdfWrapper;
 use Inisiatif\Package\Template\Bridge\Donor;
 use Inisiatif\Package\Template\Bridge\Donation;
 
 final class Bsz
 {
-    /**
-     * @var PdfWrapper
-     */
-    private $pdf;
+    private PdfWrapper $pdf;
 
     public function __construct(PdfWrapper $pdf)
     {
@@ -34,21 +32,17 @@ final class Bsz
         return $this;
     }
 
-    /**
-     * @return \Illuminate\Http\Response
-     * @noinspection PhpFullyQualifiedNameUsageInspection
-     * @noinspection PhpMissingReturnTypeInspection
-     */
-    public function download(string $fileName)
+    public function download(string $fileName): Response
     {
         return $this->pdf->download($fileName);
     }
 
-    /**
-     * @return string
-     * @noinspection PhpMissingReturnTypeInspection
-     */
-    public function output()
+    public function inline(string $fileName): Response
+    {
+        return $this->pdf->inline($fileName);
+    }
+
+    public function output(): string
     {
         return $this->pdf->output();
     }

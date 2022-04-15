@@ -9,7 +9,7 @@ use InvalidArgumentException;
 final class Donor
 {
     /**
-     * @var int
+     * @var string
      */
     private $identificationNumber;
 
@@ -28,7 +28,7 @@ final class Donor
      */
     private $address;
 
-    private function __construct(int $identificationNumber, string $name, ?string $taxNumber, ?string $address)
+    private function __construct(string $identificationNumber, string $name, ?string $taxNumber, ?string $address)
     {
         $this->identificationNumber = $identificationNumber;
         $this->name = $name;
@@ -45,7 +45,7 @@ final class Donor
         $identificationNumber = $input['identification_number'];
         $name = $input['name'];
 
-        if (! is_int($identificationNumber) || ! is_string($name)) {
+        if (! is_string($identificationNumber) || ! is_string($name)) {
             throw new InvalidArgumentException();
         }
 
@@ -55,7 +55,7 @@ final class Donor
         return new self($identificationNumber, $name, $taxNumber, $address);
     }
 
-    public function getIdentificationNumber(): int
+    public function getIdentificationNumber(): string
     {
         return $this->identificationNumber;
     }
