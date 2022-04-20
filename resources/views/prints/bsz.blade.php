@@ -27,19 +27,6 @@
         .no-border {
             border: none !important;
         }
-
-        @media print {
-            @page {
-                size: A5;
-                margin: 1em;
-            }
-
-            body {
-                height: auto;
-                width: 148.5mm;
-                margin: 0;
-            }
-        }
     </style>
 </head>
 <body>
