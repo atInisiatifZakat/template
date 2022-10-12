@@ -84,7 +84,7 @@
         </tr>
         <tr>
             <td class="no-border" style="width: 25%; text-align: right; padding-right: 1em; vertical-align: top;">
-                ID Donatur
+                NPWZ
             </td>
             <td class="no-border" style="letter-spacing: 0.2em;">
                 {{ $donor->getIdentificationNumber() }}
