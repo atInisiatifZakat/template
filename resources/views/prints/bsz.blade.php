@@ -58,10 +58,10 @@
                                 Yayasan Inisiatif Zakat Indonesia
                             </p>
                             <p style="margin: 0;">
-                                LAZNAS SK Kemenag RI No. 423 Tahun 2015
+                                LAZNAS SK Kemenag RI No. 950 Tahun 2020
                             </p>
                             <p style="margin: 0;">
-                                Alamat Jl. Raya Condet No. 54 D-E Batu Ampar Jakarta Timur 13520 - Indonesia
+                                Alamat Jl. Raya Condet No.27-G, Batu Ampar, Kramat Jati, Jakarta Timur 13520 - Indonesia
                             </p>
                             <p style="margin: 0;">
                                 Telp : (021) 87787325 Fax : (021) 87787603
