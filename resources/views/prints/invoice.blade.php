@@ -21,26 +21,20 @@
             border-bottom: 1px solid grey;
         }
 
-        @media all {
-            .transaction-status {
-                background-color: #ddd;
-                padding: 10px;
-                display: flex;
-                justify-content: center;
-            }
+        .transaction-status {
+            background-color: #ddd;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
 
-            .transaction-status table {
-                font-size: 13px;
-                width: 100%;
-            }
+        .transaction-status table {
+            font-size: 14px;
+            width: 100%;
+        }
 
-            .transaction-status table td {
-                padding: 3px;
-            }
-
-            .transaction-status table tr td:first-child {
-                font-weight: bold;
-            }
+        .transaction-status table td {
+            padding: 3px;
         }
 
         @media print {
@@ -206,7 +200,7 @@
                             {{ $donation->getBranchName() }}, {{ $donation->getDate()->format('d - m - Y') }}
                         </p>
                         <p style="line-height: 50%; font-weight: bold">
-                            Rizqi Rohmat Fahmi Hidayat
+                            Anah Herlina
                         </p>
                     </td>
                 </tr>
@@ -215,12 +209,12 @@
 
         <div style="margin: 10px">
             <div style="margin-top: 2em">
-                <p style="font-size:  0.65em; line-height: 21px; text-align: left">
+                <p style="font-size:  10.5px; line-height: 21px; text-align: left">
                     <strong>Keterangan :</strong>
                 </p>
                 <ol
                     style="
-              font-size:  0.65em;
+              font-size:  10.5px;
               text-align: justify;
               margin-left: 0;
               padding-left: 1em;
