@@ -8,7 +8,7 @@ use setasign\FpdiProtection\FpdiProtection;
 
 final class PdfProtector
 {
-    public function protect(string $path)
+    public static function protect(string $path)
     {
         $pin = config('donation.modify_pdf_pin', 'IZI_PIN');
 
