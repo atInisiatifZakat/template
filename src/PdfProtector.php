@@ -8,14 +8,13 @@ use setasign\FpdiProtection\FpdiProtection;
 
 final class PdfProtector
 {
-    public static function protect(string $path)
+    public static function protect($source)
     {
         $pin = config('donation.modify_pdf_pin', 'IZI_PIN');
 
         $protectedPdf = new FpdiProtection();
 
-        $protectedPdf->setSourceFile($path);
-        $pagecount = $protectedPdf->setSourceFile($path);
+        $pagecount = $protectedPdf->setSourceFile($source);
 
         for ($loop = 1; $loop <= $pagecount; $loop++) {
             $templateId = $protectedPdf->importPage($loop);

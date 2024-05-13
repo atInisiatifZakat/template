@@ -34,16 +34,31 @@ final class Bsz
 
     public function download(string $fileName): Response
     {
-        return $this->pdf->download($fileName);
+        return new Response($this->output(), 200, array(
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' =>  'attachment; filename="' . $fileName . '"'
+        ));
     }
 
     public function inline(string $fileName): Response
     {
-        return $this->pdf->inline($fileName);
+        return new Response($this->output(), 200, array(
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $fileName . '"',
+        ));
     }
 
     public function output(): string
     {
-        return $this->pdf->output();
+        $tmp = $this->pdf->output();
+        $stream = fopen('php://temp', 'r+');
+        fwrite($stream, $tmp);
+        rewind($stream);
+
+        $protectedPdf = PdfProtector::protect($stream);
+
+        fclose($stream);
+
+        return $protectedPdf;
     }
 }
