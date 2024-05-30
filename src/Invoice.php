@@ -6,10 +6,11 @@ namespace Inisiatif\Package\Template;
 
 use Illuminate\Http\Response;
 use Barryvdh\Snappy\PdfWrapper;
-use Inisiatif\Package\Template\Bridge\Donor;
+use Illuminate\Support\Facades\View;
 use Inisiatif\Package\Template\Bridge\Donation;
+use Inisiatif\Package\Template\Bridge\Donor;
 
-final class Bsz
+final class Invoice
 {
     private PdfWrapper $pdf;
 
@@ -20,14 +21,12 @@ final class Bsz
 
     public function make(Donor $donor, Donation $donation, array $details): self
     {
-        $this->pdf->loadView('inisiatif::prints.bsz', compact('donation', 'donor', 'details'))
-            ->setPaper('A5')
-            ->setOption('margin-bottom', '4mm')
-            ->setOption('margin-left', '2mm')
-            ->setOption('margin-right', '2mm')
-            ->setOption('margin-top', '4mm')
-            ->setOption('page-height', '210mm')
-            ->setOption('page-width', '148mm');
+        $this->pdf->loadView('inisiatif::prints.invoice', compact('donation', 'donor', 'details'))
+            ->setPaper('A4')
+            ->setOption('margin-bottom', '8mm')
+            ->setOption('margin-left', '4mm')
+            ->setOption('margin-right', '4mm')
+            ->setOption('margin-top', '8mm');
 
         return $this;
     }
