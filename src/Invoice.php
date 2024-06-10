@@ -6,7 +6,6 @@ namespace Inisiatif\Package\Template;
 
 use Illuminate\Http\Response;
 use Barryvdh\Snappy\PdfWrapper;
-use Illuminate\Support\Facades\View;
 use Inisiatif\Package\Template\Bridge\Donation;
 use Inisiatif\Package\Template\Bridge\Donor;
 
@@ -19,9 +18,9 @@ final class Invoice
         $this->pdf = $pdf;
     }
 
-    public function make(Donor $donor, Donation $donation, array $details): self
+    public function make(Donor $donor, Donation $donation, $withSignature = true, array $details): self
     {
-        $this->pdf->loadView('inisiatif::prints.invoice', compact('donation', 'donor', 'details'))
+        $this->pdf->loadView('inisiatif::prints.invoice', compact('donation', 'donor', 'details', 'withSignature'))
             ->setPaper('A4')
             ->setOption('margin-bottom', '8mm')
             ->setOption('margin-left', '4mm')
