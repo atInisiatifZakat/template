@@ -22,7 +22,7 @@ final class PdfProtector
             $protectedPdf->useTemplate($templateId);
         }
 
-        $protectedPdf->setProtection([FpdiProtection::PERM_PRINT], $pin);
+        $protectedPdf->setProtection([FpdiProtection::PERM_PRINT], '', $pin);
         return $protectedPdf->output("S");
     }
 }
