@@ -8,7 +8,7 @@ use setasign\FpdiProtection\FpdiProtection;
 
 final class PdfProtector
 {
-    public static function protect($source)
+    public static function protect($source, $paperSize)
     {
         $pin = config('donation.modify_pdf_pin', 'IZI_PIN');
 
@@ -18,7 +18,7 @@ final class PdfProtector
 
         for ($loop = 1; $loop <= $pagecount; $loop++) {
             $templateId = $protectedPdf->importPage($loop);
-            $protectedPdf->addPage();
+            $protectedPdf->addPage('P', $paperSize);
             $protectedPdf->useTemplate($templateId);
         }
 

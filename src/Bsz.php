@@ -12,6 +12,7 @@ use Inisiatif\Package\Template\Bridge\Donation;
 final class Bsz
 {
     private PdfWrapper $pdf;
+    private string $paperSize = 'A5';
 
     public function __construct(PdfWrapper $pdf)
     {
@@ -21,7 +22,7 @@ final class Bsz
     public function make(Donor $donor, Donation $donation, array $details): self
     {
         $this->pdf->loadView('inisiatif::prints.bsz', compact('donation', 'donor', 'details'))
-            ->setPaper('A5')
+            ->setPaper($this->paperSize)
             ->setOption('margin-bottom', '4mm')
             ->setOption('margin-left', '2mm')
             ->setOption('margin-right', '2mm')
@@ -55,7 +56,7 @@ final class Bsz
         fwrite($stream, $tmp);
         rewind($stream);
 
-        $protectedPdf = PdfProtector::protect($stream);
+        $protectedPdf = PdfProtector::protect($stream, $this->paperSize);
 
         fclose($stream);
 
