@@ -12,6 +12,7 @@ use Inisiatif\Package\Template\Bridge\Donor;
 final class Invoice
 {
     private PdfWrapper $pdf;
+    private string $paperSize = 'A4';
 
     public function __construct(PdfWrapper $pdf)
     {
@@ -21,7 +22,7 @@ final class Invoice
     public function make(Donor $donor, Donation $donation, $withSignature = true, array $details): self
     {
         $this->pdf->loadView('inisiatif::prints.invoice', compact('donation', 'donor', 'details', 'withSignature'))
-            ->setPaper('A4')
+            ->setPaper($this->paperSize)
             ->setOption('margin-bottom', '8mm')
             ->setOption('margin-left', '4mm')
             ->setOption('margin-right', '4mm')
@@ -53,7 +54,7 @@ final class Invoice
         fwrite($stream, $tmp);
         rewind($stream);
 
-        $protectedPdf = PdfProtector::protect($stream);
+        $protectedPdf = PdfProtector::protect($stream, $this->paperSize);
 
         fclose($stream);
 
