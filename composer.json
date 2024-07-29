@@ -18,7 +18,7 @@
         "barryvdh/laravel-snappy": "^1.0",
         "setasign/fpdf": "1.8.*",
         "setasign/fpdi": "2.5",
-        "setasign/fpdi-protection": "^2.0"
+        "setasign/fpdi-protection": "2.1"
     },
     "require-dev": {
         "orchestra/testbench": "^7.0"

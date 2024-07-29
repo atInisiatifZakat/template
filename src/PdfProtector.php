@@ -10,9 +10,11 @@ final class PdfProtector
 {
     public static function protect($source, $paperSize)
     {
-        $pin = config('donation.modify_pdf_pin', 'IZI_PIN');
+        $pin = config('template.modify_pdf_pin', 'IZI_PIN');
 
-        $protectedPdf = new FpdiProtection();
+        $useArcfourFallback = config('template.use_arcfour_fallback', true);
+
+        $protectedPdf = new FpdiProtection('P', 'mm', $paperSize, $useArcfourFallback);
 
         $pagecount = $protectedPdf->setSourceFile($source);
 
