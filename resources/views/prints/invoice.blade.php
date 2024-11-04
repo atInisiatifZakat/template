@@ -205,7 +205,7 @@
                             {{ $donation->getBranchName() }}, {{ $donation->getDate()->format('d - m - Y') }}
                         </p>
                         <p style="line-height: 50%; font-weight: bold">
-                            {{ $withSignature ? 'Anah Herlina' : 'Rizqi Rohmat Fahmi Hidayat' }}
+                            Anah Herlina
                         </p>
                     </td>
                 </tr>
