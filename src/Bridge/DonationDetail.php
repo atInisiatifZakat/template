@@ -66,7 +66,7 @@ final class DonationDetail
         $goodName = array_key_exists('good_name', $input) ? $input['good_name'] : null;
         $goodRate = array_key_exists('good_rate', $input) ? $input['good_rate'] : null;
         $goodQuantity = array_key_exists('good_quantity', $input) ? $input['good_quantity'] : null;
-        $goodUnit = array_key_exists('unit', $input) ? $input['unit'] : null;
+        $goodUnit = array_key_exists('good_unit', $input) ? $input['good_unit'] : null;
 
 
         if (!is_string($fundingName) || !is_float($amount)) {
