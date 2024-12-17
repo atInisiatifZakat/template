@@ -96,12 +96,12 @@
         }
 
         .funding-name {
-            margin: 0 0 5px 0;
+            margin: 0;
             line-height: 1
         }
 
         .funding-description {
-            margin: 0;
+            margin: 5px 0 0 0;
             line-height: 1;
             color: #868686
         }
@@ -254,7 +254,9 @@
                         <tr>
                             <td class="body-cell">
                                 <p class="funding-name">{{ $detail->getFundingName() }}</p>
-                                <p class="funding-description">Beras 10 Kg</p>
+                                @if ($donation->getType() === 'GOOD')
+                                    <p class="funding-description">Beras 10 Kg</p>
+                                @endif
                             </td>
                             <td class="body-cell">{{ $detail->getProgramName() }}</td>
                             <td class="body-cell amount-cell">
