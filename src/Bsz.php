@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Inisiatif\Package\Template;
 
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Response;
-use Barryvdh\Snappy\PdfWrapper;
 use Inisiatif\Package\Template\Bridge\Donor;
 use Inisiatif\Package\Template\Bridge\Donation;
 
 final class Bsz
 {
-    private PdfWrapper $pdf;
+    private PDF $pdf;
     private string $paperSize = 'A5';
 
-    public function __construct(PdfWrapper $pdf)
+    public function __construct(PDF $pdf)
     {
         $this->pdf = $pdf;
     }
@@ -22,14 +22,8 @@ final class Bsz
     public function make(Donor $donor, Donation $donation, array $details): self
     {
         $this->pdf->loadView('inisiatif::prints.bsz', compact('donation', 'donor', 'details'))
-            ->setPaper($this->paperSize)
-            ->setOption('margin-bottom', '4mm')
-            ->setOption('margin-left', '2mm')
-            ->setOption('margin-right', '2mm')
-            ->setOption('margin-top', '4mm')
-            ->setOption('page-height', '210mm')
-            ->setOption('page-width', '148mm');
-
+            ->setPaper($this->paperSize);
+            
         return $this;
     }
 
@@ -51,15 +45,23 @@ final class Bsz
 
     public function output(): string
     {
-        $tmp = $this->pdf->output();
-        $stream = fopen('php://temp', 'r+');
-        fwrite($stream, $tmp);
-        rewind($stream);
+        $this->protect();
 
-        $protectedPdf = PdfProtector::protect($stream, $this->paperSize);
+        return $this->pdf->output();
+    }
 
-        fclose($stream);
+    private function protect()
+    {
+        $dompdf = $this->pdf->getDomPDF();
 
-        return $protectedPdf;
+        $dompdf->render();
+
+        $pin = config('donation.modify_pdf_pin', 'IZI_PIN');
+
+        /** @var CPDF $canvas */
+        $canvas = $dompdf->getCanvas();
+        $canvas->get_cpdf()->setEncryption('', $pin, [
+            'print',
+        ], 3);
     }
 }
