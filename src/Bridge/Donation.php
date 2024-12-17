@@ -29,20 +29,29 @@ final class Donation
      */
     private $branchName;
 
-    private function __construct(string $identificationNumber, DateTimeInterface $date, float $amount, string $branchName)
+    /**
+     * @var string
+     */
+    private $type;
+
+    private function __construct(string $identificationNumber, DateTimeInterface $date, float $amount, string $branchName, string $type)
     {
         $this->identificationNumber = $identificationNumber;
         $this->date = $date;
         $this->amount = $amount;
         $this->branchName = $branchName;
+        $this->type = $type;
     }
 
     public static function fromArray(array $input): self
     {
-        if (! array_key_exists('identification_number', $input)
+        if (
+            ! array_key_exists('identification_number', $input)
             || ! array_key_exists('date', $input)
             || ! array_key_exists('amount', $input)
-            || ! array_key_exists('branch_name', $input)) {
+            || ! array_key_exists('branch_name', $input)
+            || ! array_key_exists('type', $input)
+        ) {
             throw new InvalidArgumentException();
         }
 
@@ -50,12 +59,13 @@ final class Donation
         $date = $input['date'];
         $amount = is_int($input['amount']) ? (float) $input['amount'] : $input['amount'];
         $branchName = $input['branch_name'];
+        $type = $input['type'];
 
         if (! is_string($identificationNumber) || ! is_float($amount) || ! $date instanceof DateTimeInterface || ! is_string($branchName)) {
             throw new InvalidArgumentException();
         }
 
-        return new self($identificationNumber, $date, $amount, $branchName);
+        return new self($identificationNumber, $date, $amount, $branchName, $type);
     }
 
     public function getIdentificationNumber(): string
@@ -71,6 +81,11 @@ final class Donation
     public function getAmount(): float
     {
         return $this->amount;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     public function getAmountFormatted(): string
