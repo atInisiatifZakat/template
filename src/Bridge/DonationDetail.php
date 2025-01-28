@@ -43,7 +43,22 @@ final class DonationDetail
      */
     private $goodUnit;
 
-    private function __construct(string $fundingName, ?string $programName, float $amount, ?string $goodName, ?int $goodRate, ?int $goodQuantity, ?string $goodUnit)
+    /**
+     * @var float
+     */
+    private $totalAmount;
+
+    /**
+     * @var ?string
+     */
+    private $currency;
+
+    /**
+     * @var ?float
+     */
+    private $currencyRate;
+
+    private function __construct(string $fundingName, ?string $programName, float $amount, ?string $goodName, ?int $goodRate, ?int $goodQuantity, ?string $goodUnit, ?float $totalAmount, ?string $currency, ?float $currencyRate)
     {
         $this->fundingName = $fundingName;
         $this->programName = $programName;
@@ -52,6 +67,9 @@ final class DonationDetail
         $this->goodRate = $goodRate;
         $this->goodQuantity = $goodQuantity;
         $this->goodUnit = $goodUnit;
+        $this->totalAmount = $totalAmount;
+        $this->currency = $currency;
+        $this->currencyRate = $currencyRate;
     }
 
     public static function fromArray(array $input): self
@@ -67,13 +85,16 @@ final class DonationDetail
         $goodRate = array_key_exists('good_rate', $input) ? $input['good_rate'] : null;
         $goodQuantity = array_key_exists('good_quantity', $input) ? $input['good_quantity'] : null;
         $goodUnit = array_key_exists('good_unit', $input) ? $input['good_unit'] : null;
+        $totalAmount = is_int($input['total_amount']) ? (float) $input['total_amount'] : $input['total_amount'];
+        $currency = array_key_exists('currency', $input) ? $input['currency'] : null;
+        $currencyRate = is_int($input['currency_rate']) ? (float) $input['currency_rate'] : $input['currency_rate'];
 
 
-        if (!is_string($fundingName) || !is_float($amount)) {
+        if (!is_string($fundingName) || !is_float($amount) || !is_float($totalAmount)) {
             throw new InvalidArgumentException();
         }
 
-        return new self($fundingName, $programName, $amount, $goodName, $goodRate, $goodQuantity, $goodUnit);
+        return new self($fundingName, $programName, $amount, $goodName, $goodRate, $goodQuantity, $goodUnit, $totalAmount, $currency, $currencyRate);
     }
 
     public function getFundingName(): string
@@ -93,7 +114,7 @@ final class DonationDetail
 
     public function getAmountFormatted(): string
     {
-        return number_format($this->getAmount());
+        return number_format($this->getAmount(), 0, '.', '.');
     }
 
     public function getGoodName(): ?string
@@ -114,5 +135,25 @@ final class DonationDetail
     public function getGoodUnit(): ?string
     {
         return $this->goodUnit;
+    }
+    
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function getCurrencyRate(): ?float
+    {
+        return $this->currencyRate;
+    }
+
+    public function getTotalAmount(): float
+    {
+        return $this->getAmount() * $this->getCurrencyRate();
+    }
+    
+    public function getTotalAmountFormatted(): string
+    {
+        return number_format($this->getTotalAmount());
     }
 }

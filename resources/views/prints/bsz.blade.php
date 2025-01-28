@@ -200,6 +200,26 @@
             margin-top: 0;
             line-height: 160%;
         }
+
+        .currency-cell {
+            vertical-align: top;
+            text-align: right;
+            padding: 10px 5px;
+        }
+
+        .currency-text {
+            color: gray;
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        td > li {
+            list-style: none;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -288,12 +308,33 @@
                 <tr>
                     <td class="zakat-number">{{ $loop->iteration }}</td>
                     <td class="zakat-description">{{ $detail->getFundingName() }}</td>
-                    <td class="zakat-amount">{{ sprintf('Rp. %s', $detail->getAmountFormatted()) }}</td>
+                    <td class="zakat-amount">
+                        <li>
+                            {{ sprintf('Rp. %s', $detail->getTotalAmountFormatted()) }}
+                        </li>
+                        <li class="currency-text">
+                            ({{ $detail->getCurrency() }} {{ $detail->getAmountFormatted() }})
+                        </li>
+                    </td>
                 </tr>
             @endforeach
             <tr class="total-row">
-                <td colspan="2" class="zakat-description text-right">Total</td>
-                <td class="zakat-amount">{{ sprintf('Rp. %s', $donation->getAmountFormatted()) }}</td>
+                <td colspan="2" class="zakat-description text-right">
+                    <li>
+                        Total
+                    </li>
+                    <li class="currency-text">
+                        Rate 1 {{ $donation->getCurrency() }} ke IDR adalah {{ $donation->getCurrencyRate() }}
+                    </li>
+                </td>
+                <td class="zakat-amount">
+                    <li>
+                        {{ sprintf('Rp. %s', $donation->getTotalAmountFormatted()) }}
+                    </li>
+                    <li class="currency-text bold">
+                        ({{ $donation->getCurrency() }} {{ $donation->getAmountFormatted() }})
+                    </li>
+                </td>
             </tr>
         </table>
 
@@ -301,7 +342,7 @@
             <tr class="no-border">
                 <td class="amount-text no-border">Terbilang</td>
                 <td class="amount-value">
-                    {{ \Inisiatif\Package\Template\Rupiah::titleCase($donation->getAmount()) }}
+                    {{ \Inisiatif\Package\Template\Rupiah::titleCase($donation->getTotalAmount()) }}
                 </td>
             </tr>
         </table>
