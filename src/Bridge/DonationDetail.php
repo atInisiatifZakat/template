@@ -149,7 +149,11 @@ final class DonationDetail
 
     public function getTotalAmount(): float
     {
-        return $this->getAmount() * $this->getCurrencyRate();
+        if (!$this->totalAmount) {
+            return $this->getAmount() * $this->getCurrencyRate();
+        }
+
+        return $this->totalAmount;
     }
     
     public function getTotalAmountFormatted(): string
