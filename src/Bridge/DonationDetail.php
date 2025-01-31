@@ -137,14 +137,14 @@ final class DonationDetail
         return $this->goodUnit;
     }
     
-    public function getCurrency(): ?string
+    public function getCurrency(): string
     {
-        return $this->currency;
+        return $this->currency ?? 'IDR';
     }
 
-    public function getCurrencyRate(): ?float
+    public function getCurrencyRate(): float
     {
-        return $this->currencyRate;
+        return $this->currencyRate ?? 1;
     }
 
     public function getTotalAmount(): float

@@ -124,16 +124,20 @@ final class Donation
 
     public function getCurrency(): string
     {
-        return $this->currency;
+        return $this->currency ?? 'IDR';
     }
 
     public function getCurrencyRate(): float
     {
-        return $this->currencyRate;
+        return $this->currencyRate ?? 1;
     }
 
     public function getTotalAmount(): float
     {
+        if (!$this->totalAmount) {
+            return $this->getAmount() * $this->getCurrencyRate();
+        }
+
         return $this->totalAmount;
     }
     
