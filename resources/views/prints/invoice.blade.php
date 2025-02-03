@@ -119,6 +119,26 @@
             font-weight: bold;
         }
 
+        .currency-cell {
+            vertical-align: top;
+            text-align: right;
+            padding: 10px 5px;
+        }
+
+        .currency-text {
+            color: gray;
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        td > li {
+            list-style: none;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
         .closing-text {
             margin: 10px 0 1em 0;
             line-height: 22px;
@@ -260,16 +280,33 @@
                             </td>
                             <td class="body-cell">{{ $detail->getProgramName() }}</td>
                             <td class="body-cell amount-cell">
-                                {{ sprintf('Rp. %s', $detail->getAmountFormatted()) }}
+                                <li>
+                                    {{ sprintf('Rp. %s', $detail->getTotalAmountFormatted()) }}
+                                </li>
+                                <li class="right-align currency-text">
+                                    ({{ $detail->getCurrency() }} {{ $detail->getAmountFormatted() }})
+                                </li>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="2" class="footer-cell">Total Transaksi</td>
+                        <td colspan="2" class="footer-cell">
+                            <li>
+                                Total Transaksi
+                            </li>
+                            <li class="currency-text">
+                                Rate 1 {{ $donation->getCurrency() }} ke IDR adalah {{ $donation->getCurrencyRate() }}
+                            </li>
+                        </td>
                         <td class="footer-cell amount-cell">
-                            {{ sprintf('Rp. %s', $donation->getAmountFormatted()) }}
+                            <li>
+                                {{ sprintf('Rp. %s', $donation->getTotalAmountFormatted()) }}
+                            </li>
+                            <li class="currency-text bold">
+                                ({{ $donation->getCurrency() }} {{ $donation->getAmountFormatted() }})
+                            </li>
                         </td>
                     </tr>
                 </tfoot>
