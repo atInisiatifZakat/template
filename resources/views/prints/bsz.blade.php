@@ -312,9 +312,11 @@
                         <li>
                             {{ sprintf('Rp. %s', $detail->getTotalAmountFormatted()) }}
                         </li>
-                        <li class="currency-text">
-                            ({{ $detail->getCurrency() }} {{ $detail->getAmountFormatted() }})
-                        </li>
+                        @if ($detail->getCurrency() !== 'IDR')
+                            <li class="currency-text">
+                                ({{ $detail->getCurrency() }} {{ $detail->getAmountFormatted() }})
+                            </li>
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -323,17 +325,21 @@
                     <li>
                         Total
                     </li>
-                    <li class="currency-text">
-                        Rate 1 {{ $donation->getCurrency() }} ke IDR adalah {{ $donation->getCurrencyRate() }}
-                    </li>
+                    @if ($detail->getCurrency() !== 'IDR')
+                        <li class="currency-text">
+                            Rate 1 {{ $donation->getCurrency() }} ke IDR adalah {{ $donation->getCurrencyRate() }}
+                        </li>
+                    @endif
                 </td>
                 <td class="zakat-amount">
                     <li>
                         {{ sprintf('Rp. %s', $donation->getTotalAmountFormatted()) }}
                     </li>
-                    <li class="currency-text bold">
-                        ({{ $donation->getCurrency() }} {{ $donation->getAmountFormatted() }})
-                    </li>
+                    @if ($detail->getCurrency() !== 'IDR')
+                        <li class="currency-text bold">
+                            ({{ $donation->getCurrency() }} {{ $donation->getAmountFormatted() }})
+                        </li>
+                    @endif
                 </td>
             </tr>
         </table>
