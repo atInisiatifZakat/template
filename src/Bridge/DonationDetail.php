@@ -85,9 +85,9 @@ final class DonationDetail
         $goodRate = array_key_exists('good_rate', $input) ? $input['good_rate'] : null;
         $goodQuantity = array_key_exists('good_quantity', $input) ? $input['good_quantity'] : null;
         $goodUnit = array_key_exists('good_unit', $input) ? $input['good_unit'] : null;
-        $totalAmount = is_int($input['total_amount']) ? (float) $input['total_amount'] : $input['total_amount'];
-        $currency = array_key_exists('currency', $input) ? $input['currency'] : null;
-        $currencyRate = is_int($input['currency_rate']) ? (float) $input['currency_rate'] : $input['currency_rate'];
+        $currency = array_key_exists('currency', $input) ? $input['currency'] : 'IDR';
+        $currencyRate = array_key_exists('currency_rate', $input) ? (float) $input['currency_rate'] : 1.0;
+        $totalAmount = (float) ($amount * $currencyRate);
 
 
         if (!is_string($fundingName) || !is_float($amount) || !is_float($totalAmount)) {

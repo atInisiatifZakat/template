@@ -69,9 +69,6 @@ final class Donation
             || ! array_key_exists('amount', $input)
             || ! array_key_exists('branch_name', $input)
             || ! array_key_exists('type', $input)
-            || ! array_key_exists('total_amount', $input)
-            || ! array_key_exists('currency', $input)
-            || ! array_key_exists('currency_rate', $input)
         ) {
             throw new InvalidArgumentException();
         }
@@ -81,9 +78,9 @@ final class Donation
         $amount = is_int($input['amount']) ? (float) $input['amount'] : $input['amount'];
         $branchName = $input['branch_name'];
         $type = $input['type'];
-        $totalAmount = (float) $input['total_amount'];
-        $currency = $input['currency'];
-        $currencyRate = (float) $input['currency_rate'];
+        $currency = $input['currency'] ?? 'IDR';
+        $currencyRate = (float) ($input['currency_rate'] ?? 1);
+        $totalAmount = (float) ($amount * $currencyRate);
 
         if (! is_string($identificationNumber) || ! is_float($amount)|| ! is_float($totalAmount) || ! $date instanceof DateTimeInterface || ! is_string($branchName)) {
             throw new InvalidArgumentException();
