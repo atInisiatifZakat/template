@@ -354,7 +354,7 @@
                     <li>
                         Inisiatif Zakat Indonesia terdaftar sebagai lembaga penerbit Bukti
                         Setor Zakat (BSZ) untuk pengurangan penghasilan kena pajak
-                        berdasarkan peraturan Dirjen Pajak No. PER-11/PJ/2017.
+                        berdasarkan peraturan Dirjen Pajak No. PER-08/PJ/2021.
                     </li>
                     <li>
                         Inisiatif Zakat Indonesia tidak menerima segala bentuk dana yang
