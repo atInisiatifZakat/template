@@ -26,13 +26,19 @@ final class Donor
     /**
      * @var string|null
      */
+    private $taxAddress;
+
+    /**
+     * @var string|null
+     */
     private $address;
 
-    private function __construct(string $identificationNumber, string $name, ?string $taxNumber, ?string $address)
+    private function __construct(string $identificationNumber, string $name, ?string $taxNumber, ?string $address, ?string $taxAddress)
     {
         $this->identificationNumber = $identificationNumber;
         $this->name = $name;
         $this->taxNumber = $taxNumber;
+        $this->taxAddress = $taxAddress;
         $this->address = $address;
     }
 
@@ -50,9 +56,10 @@ final class Donor
         }
 
         $taxNumber = array_key_exists('tax_number', $input) ? $input['tax_number'] : null;
+        $taxAddress = array_key_exists('tax_address', $input) ? $input['tax_address'] : null;
         $address = array_key_exists('address', $input) ? $input['address'] : null;
 
-        return new self($identificationNumber, $name, $taxNumber, $address);
+        return new self($identificationNumber, $name, $taxNumber, $address, $taxAddress);
     }
 
     public function getIdentificationNumber(): string
@@ -68,6 +75,11 @@ final class Donor
     public function getTaxNumber(): ?string
     {
         return $this->taxNumber;
+    }
+
+    public function getTaxAddress(): ?string
+    {
+        return $this->taxAddress;
     }
 
     public function getAddress(): ?string
