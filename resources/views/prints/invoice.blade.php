@@ -33,11 +33,23 @@
             font-weight: bold;
             font-size: 18px;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
 
         .description {
             line-height: 22px;
             text-align: justify;
+        }
+
+        .greeting {
+            background-color: #ddd;
+            padding: 10px;
+        }
+
+        .greeting p {
+            padding: 0;
+            margin: 0;
         }
 
         .transaction-status {
@@ -54,6 +66,16 @@
 
         .transaction-status table td {
             padding: 3px;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+
+        .transaction-status .detail-title {
+            min-width: 120px;
+        }
+
+        .transaction-status .detail-value {
+            width: 210px;
         }
 
         .transaction-header {
@@ -131,7 +153,7 @@
             font-weight: normal;
         }
 
-        td > li {
+        td>li {
             list-style: none;
         }
 
@@ -188,6 +210,7 @@
 
         .notes-section {
             margin-top: 2em;
+            page-break-inside: avoid;
         }
 
         .notes-title {
@@ -203,11 +226,30 @@
             padding-left: 1em;
         }
 
+        .organization {
+            padding-top: 6px;
+            padding-bottom: 6px;
+        }
+
+        .organization-name {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            margin: 5px;
+        }
+
+        .organization-detail {
+            font-size: 10.5px;
+            text-align: center;
+            margin: 5px;
+        }
+
         @page {
             margin-top: 10mm;
             margin-right: 4mm;
             margin-bottom: 4mm;
             margin-left: 4mm;
+
         }
     </style>
 </head>
@@ -231,30 +273,49 @@
         <div class="content-container">
             <p class="title">KUITANSI</p>
 
-            <p>Kepada Bapak/Ibu <strong>{{ $donor->getName() }}</strong></p>
+            <div class="organization">
+                <p class="organization-name">Yayasan Inisiatif Zakat Indonesia</p>
+                <p class="organization-detail">LAZNAS SK Kemenag RI No. 950 Tahun 2020</p>
+                <p class="organization-detail">Alamat Jl. Raya Condet No.27-G, Batu Ampar, Kramat Jati, Jakarta Timur
+                    13520 - Indonesia</p>
+                <p class="organization-detail">Telp : (021) 87787325 Fax : (021) 87787603</p>
+            </div>
+
+            <div class="greeting">
+                <p>Kepada Bapak/Ibu <strong>{{ $donor->getName() }}</strong></p>
+            </div>
+
             <p class="description">
-                Kuitansi ini adalah bukti pembayaran zakat, infaq dan shodaqoh Anda di
-                Inisiatif Zakat Indonesia. Berikut kami sertakan detail pembayaran
-                Anda:
+                Kuitansi ini adalah bukti pembayaran Zakat, Infaq dan Shodaqoh Anda di Inisiatif Zakat Indonesia.
+                Berikut kami sertakan detail pembayaran Anda:
             </p>
             <div class="transaction-status">
                 <table>
                     <tbody>
                         <tr>
-                            <td><b>Nomor Donatur</b></td>
+                            <td class="detail-title"><b>Nomor Donatur</b></td>
                             <td>:</td>
-                            <td>{{ $donor->getIdentificationNumber() }}</td>
-                            <td><b>Nomor Transaksi</b></td>
+                            <td class="detail-value">{{ $donor->getIdentificationNumber() }}</td>
+                            <td class="detail-title"><b>Nomor Transaksi</b></td>
                             <td>:</td>
-                            <td>{{ $donation->getIdentificationNumber() }}</td>
+                            <t class="detail-value"d>{{ $donation->getIdentificationNumber() }}</t>
                         </tr>
                         <tr>
-                            <td><b>Nama Donatur</b></td>
+                            <td class="detail-title"><b>Nama Donatur</b></td>
                             <td>:</td>
-                            <td>{{ $donor->getName() }}</td>
-                            <td><b>Tanggal Transaksi</b></td>
+                            <td class="detail-value">{{ $donor->getName() }}</td>
+                            <td class="detail-title"><b>Tanggal Transaksi</b></td>
                             <td>:</td>
-                            <td>{{ $donation->getDate()->format('d - m - Y') }}</td>
+                            <td class="detail-value">{{ $donation->getDate()->format('d - m - Y') }}</td>
+
+                        </tr>
+                        <tr>
+                            <td class="detail-title"><b>NPWP</b></td>
+                            <td>:</td>
+                            <td class="detail-value">{{ $donor->getTaxNumber() }}</td>
+                            <td class="detail-title"><b>Alamat NPWP</b></td>
+                            <td>:</td>
+                            <td class="detail-value">{{ $donor->getTaxAddress() }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -300,7 +361,8 @@
                             </li>
                             @if ($donation->getCurrency() !== 'IDR')
                                 <li class="currency-text">
-                                    Rate 1 {{ $donation->getCurrency() }} ke IDR adalah {{ $donation->getCurrencyRate() }}
+                                    Rate 1 {{ $donation->getCurrency() }} ke IDR adalah
+                                    {{ $donation->getCurrencyRate() }}
                                 </li>
                             @endif
                         </td>
