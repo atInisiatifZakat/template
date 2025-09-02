@@ -21,18 +21,28 @@
             border-bottom: 1px solid grey;
         }
 
-        .logo-container {
-            margin: 20px 0 0 1rem;
+        .content-container {
+            margin: 0 10px 10px;
         }
 
-        .content-container {
-            margin: 10px;
+        .invoice-header {
+            margin-top: 20px;
+        }
+
+        .invoice-header table {
+            width: 100%; 
+            border-collapse: collapse; 
+            border-spacing: 0;
+        }
+
+        .invoice-content {
+            font-size: 13px;
         }
 
         .title {
             font-weight: bold;
             font-size: 18px;
-            text-align: center;
+            text-align: right;
             margin: 0;
             padding: 0;
         }
@@ -214,13 +224,13 @@
         }
 
         .notes-title {
-            font-size: 10.5px;
+            font-size: 9.5px;
             line-height: 21px;
             text-align: left;
         }
 
         .notes-list {
-            font-size: 10.5px;
+            font-size: 9.5px;
             text-align: justify;
             margin-left: 0;
             padding-left: 1em;
@@ -234,14 +244,14 @@
         .organization-name {
             font-size: 12px;
             font-weight: bold;
-            text-align: center;
-            margin: 5px;
+            text-align: right;
+            margin: 5px 0;
         }
 
         .organization-detail {
-            font-size: 10.5px;
-            text-align: center;
-            margin: 5px;
+            font-size: 9.5px;
+            text-align: right;
+            margin: 5px 0;
         }
 
         @page {
@@ -266,128 +276,140 @@
 
 <body>
     <div class="box">
-        <div class="logo-container">
-            <img src="{{ $logoImg }}" height="60" alt="Inisiatif Zakat Indonesia" />
-        </div>
-
         <div class="content-container">
-            <p class="title">KUITANSI</p>
-
-            <div class="organization">
-                <p class="organization-name">Yayasan Inisiatif Zakat Indonesia</p>
-                <p class="organization-detail">LAZNAS SK Kemenag RI No. 950 Tahun 2020</p>
-                <p class="organization-detail">Alamat Jl. Raya Condet No.27-G, Batu Ampar, Kramat Jati, Jakarta Timur
-                    13520 - Indonesia</p>
-                <p class="organization-detail">Telp : (021) 87787325 Fax : (021) 87787603</p>
-            </div>
-
-            <div class="greeting">
-                <p>Kepada Bapak/Ibu <strong>{{ $donor->getName() }}</strong></p>
-            </div>
-
-            <p class="description">
-                Kuitansi ini adalah bukti pembayaran Zakat, Infaq dan Shodaqoh Anda di Inisiatif Zakat Indonesia.
-                Berikut kami sertakan detail pembayaran Anda:
-            </p>
-            <div class="transaction-status">
+            <div class="invoice-header">
                 <table>
-                    <tbody>
-                        <tr>
-                            <td class="detail-title"><b>Nomor Donatur</b></td>
-                            <td>:</td>
-                            <td class="detail-value">{{ $donor->getIdentificationNumber() }}</td>
-                            <td class="detail-title"><b>Nomor Transaksi</b></td>
-                            <td>:</td>
-                            <t class="detail-value"d>{{ $donation->getIdentificationNumber() }}</t>
-                        </tr>
-                        <tr>
-                            <td class="detail-title"><b>Nama Donatur</b></td>
-                            <td>:</td>
-                            <td class="detail-value">{{ $donor->getName() }}</td>
-                            <td class="detail-title"><b>Tanggal Transaksi</b></td>
-                            <td>:</td>
-                            <td class="detail-value">{{ $donation->getDate()->format('d - m - Y') }}</td>
-
-                        </tr>
-                        <tr>
-                            <td class="detail-title"><b>NPWP</b></td>
-                            <td>:</td>
-                            <td class="detail-value">{{ $donor->getTaxNumber() }}</td>
-                            <td class="detail-title"><b>Alamat NPWP</b></td>
-                            <td>:</td>
-                            <td class="detail-value">{{ $donor->getTaxAddress() }}</td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <td style="vertical-align: top; width:120px;">
+                            <img src="{{ $logoImg }}" height="60" alt="Inisiatif Zakat Indonesia"/>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div style="text-align:right;">
+                                <div class="title">
+                                    KUITANSI
+                                </div>
+                                <div class="organization">
+                                    <p class="organization-name">Yayasan Inisiatif Zakat Indonesia</p>
+                                    <p class="organization-detail">LAZNAS SK Kemenag RI No. 950 Tahun 2020</p>
+                                    <p class="organization-detail">Alamat Jl. Raya Condet No.27-G, Batu Ampar, Kramat Jati, Jakarta Timur 13520</p>
+                                    <p class="organization-detail">Telp : (021) 87787325 Fax : (021) 87787603</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             </div>
 
-            <div class="transaction-header">Detail Transaksi</div>
-            <table class="transaction-table">
-                <thead class="table-header">
-                    <tr>
-                        <td class="header-cell">Jenis Transaksi</td>
-                        <td class="header-cell">Program</td>
-                        <td class="header-cell right-align">Sub Total</td>
-                    </tr>
-                </thead>
-                <tbody class="table-body">
-                    @foreach ($details as $detail)
+            
+            <div class="invoice-content">
+                <div class="greeting">
+                    <p>Kepada Bapak/Ibu <strong>{{ $donor->getName() }}</strong></p>
+                </div>
+
+                <p class="description">
+                    Kuitansi ini adalah bukti pembayaran Zakat, Infaq dan Shodaqoh Anda di Inisiatif Zakat Indonesia.
+                    Berikut kami sertakan detail pembayaran Anda:
+                </p>
+                <div class="transaction-status">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="detail-title"><b>Nomor Donatur</b></td>
+                                <td>:</td>
+                                <td class="detail-value">{{ $donor->getIdentificationNumber() }}</td>
+                                <td class="detail-title"><b>Nomor Transaksi</b></td>
+                                <td>:</td>
+                                <t class="detail-value"d>{{ $donation->getIdentificationNumber() }}</t>
+                            </tr>
+                            <tr>
+                                <td class="detail-title"><b>Nama Donatur</b></td>
+                                <td>:</td>
+                                <td class="detail-value">{{ $donor->getName() }}</td>
+                                <td class="detail-title"><b>Tanggal Transaksi</b></td>
+                                <td>:</td>
+                                <td class="detail-value">{{ $donation->getDate()->format('d - m - Y') }}</td>
+
+                            </tr>
+                            <tr>
+                                <td class="detail-title"><b>NPWP</b></td>
+                                <td>:</td>
+                                <td class="detail-value">{{ $donor->getTaxNumber() }}</td>
+                                <td class="detail-title"><b>Alamat NPWP</b></td>
+                                <td>:</td>
+                                <td class="detail-value">{{ $donor->getTaxAddress() }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="transaction-header">Detail Transaksi</div>
+                <table class="transaction-table">
+                    <thead class="table-header">
                         <tr>
-                            <td class="body-cell">
-                                <p class="funding-name">{{ $detail->getFundingName() }}</p>
-                                @if ($donation->getType() === 'GOOD')
-                                    <p class="funding-description">Beras 10 Kg</p>
+                            <td class="header-cell">Jenis Transaksi</td>
+                            <td class="header-cell">Program</td>
+                            <td class="header-cell right-align">Sub Total</td>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        @foreach ($details as $detail)
+                            <tr>
+                                <td class="body-cell">
+                                    <p class="funding-name">{{ $detail->getFundingName() }}</p>
+                                    @if ($donation->getType() === 'GOOD')
+                                        <p class="funding-description">Beras 10 Kg</p>
+                                    @endif
+                                </td>
+                                <td class="body-cell">{{ $detail->getProgramName() }}</td>
+                                <td class="body-cell amount-cell">
+                                    <li>
+                                        {{ sprintf('Rp. %s', $detail->getTotalAmountFormatted()) }}
+                                    </li>
+                                    @if ($detail->getCurrency() !== 'IDR')
+                                        <li class="right-align currency-text">
+                                            ({{ $detail->getCurrency() }} {{ $detail->getAmountFormatted() }})
+                                        </li>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2" class="footer-cell">
+                                <li>
+                                    Total Transaksi
+                                </li>
+                                @if ($donation->getCurrency() !== 'IDR')
+                                    <li class="currency-text">
+                                        Rate 1 {{ $donation->getCurrency() }} ke IDR adalah
+                                        {{ $donation->getCurrencyRate() }}
+                                    </li>
                                 @endif
                             </td>
-                            <td class="body-cell">{{ $detail->getProgramName() }}</td>
-                            <td class="body-cell amount-cell">
+                            <td class="footer-cell amount-cell">
                                 <li>
-                                    {{ sprintf('Rp. %s', $detail->getTotalAmountFormatted()) }}
+                                    {{ sprintf('Rp. %s', $donation->getTotalAmountFormatted()) }}
                                 </li>
-                                @if ($detail->getCurrency() !== 'IDR')
-                                    <li class="right-align currency-text">
-                                        ({{ $detail->getCurrency() }} {{ $detail->getAmountFormatted() }})
+                                @if ($donation->getCurrency() !== 'IDR')
+                                    <li class="currency-text bold">
+                                        ({{ $donation->getCurrency() }} {{ $donation->getAmountFormatted() }})
                                     </li>
                                 @endif
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="2" class="footer-cell">
-                            <li>
-                                Total Transaksi
-                            </li>
-                            @if ($donation->getCurrency() !== 'IDR')
-                                <li class="currency-text">
-                                    Rate 1 {{ $donation->getCurrency() }} ke IDR adalah
-                                    {{ $donation->getCurrencyRate() }}
-                                </li>
-                            @endif
-                        </td>
-                        <td class="footer-cell amount-cell">
-                            <li>
-                                {{ sprintf('Rp. %s', $donation->getTotalAmountFormatted()) }}
-                            </li>
-                            @if ($donation->getCurrency() !== 'IDR')
-                                <li class="currency-text bold">
-                                    ({{ $donation->getCurrency() }} {{ $donation->getAmountFormatted() }})
-                                </li>
-                            @endif
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                    </tfoot>
+                </table>
 
-            <p class="closing-text">
-                Semoga Allah memberikan pahala atas apa yang telah Bapak/Ibu
-                {{ $donor->getName() }}{{ ' ' }}
-                tunaikan, semoga Allah memberikan keberkahan atas harta yang masih
-                tertinggal dan semoga
-                <strong>zakat, infaq dan shodaqoh</strong> ini menjadi pembersih bagi
-                jiwa dan harta Bapak/Ibu {{ $donor->getName() }} beserta keluarga.
-            </p>
+                <p class="closing-text">
+                    Semoga Allah memberikan pahala atas apa yang telah Bapak/Ibu
+                    {{ $donor->getName() }}{{ ' ' }}
+                    tunaikan, semoga Allah memberikan keberkahan atas harta yang masih
+                    tertinggal dan semoga
+                    <strong>zakat, infaq dan shodaqoh</strong> ini menjadi pembersih bagi
+                    jiwa dan harta Bapak/Ibu {{ $donor->getName() }} beserta keluarga.
+                </p>
+            </div>
         </div>
 
         <table class="signature-table">
