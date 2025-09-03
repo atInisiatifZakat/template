@@ -42,7 +42,7 @@
         .title {
             font-weight: bold;
             font-size: 18px;
-            text-align: right;
+            text-align: center;
             margin: 0;
             padding: 0;
         }
@@ -244,13 +244,13 @@
         .organization-name {
             font-size: 12px;
             font-weight: bold;
-            text-align: right;
+            text-align: center;
             margin: 5px 0;
         }
 
         .organization-detail {
             font-size: 9.5px;
-            text-align: right;
+            text-align: center;
             margin: 5px 0;
         }
 
@@ -284,7 +284,7 @@
                             <img src="{{ $logoImg }}" height="60" alt="Inisiatif Zakat Indonesia"/>
                         </td>
                         <td style="vertical-align: top;">
-                            <div style="text-align:right;">
+                            <div style="display:inline-block; width:auto; text-align:left; margin-left: 80px;">
                                 <div class="title">
                                     KUITANSI
                                 </div>
